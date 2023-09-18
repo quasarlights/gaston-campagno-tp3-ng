@@ -9,34 +9,45 @@
                 } -->
                 
                 <!-- CREATE EMPLEADO -->   
-        <form>                                     
+         <form [formGroup]="formulario" (ngSubmit)="crearEmpleado()">                                     
             <div class="mb-3">
-                <label for="nroDocumento" class="form-label">Numero de Documento</label>
-                <input type="number" class="form-control" id="nroDocumento" name="nroDocumento">
-             </div>
-             <div class="mb-3">
-                <label for="name" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="name" name="name">
-             </div>
-             <div class="mb-3">
-                <label for="surname" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="surname" name="surname">
-             </div>
+               <label for="nroDocumento" class="form-label">Numero de Documento</label>
+               <input type="text" class="form-control" id="nroDocumento" name="nroDocumento" (input)="soloNumeros($event)" required>
+               <div class="invalid-feedback">Por favor, ingrese solo números.</div>
+               <div class="invalid-message" *ngIf="mostrarMensaje">Solo se permiten números.</div>
+            </div>            
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-              </div>
-              <div class="mb-3">
-                <label for="birthDay" class="form-label">Fecha de Nacimiento</label>
-                <input type="date" class="form-control" id="birthDay" name="birthDay">
-             </div>
-             <div class="mb-3">
-                <label for="admissionDay" class="form-label">Fecha de Ingreso</label>
-                <input type="date" class="form-control" id="admissionDay" name="admissionDay">
-             </div>                        
-             <div class="d-grid gap-2">
-                <button class="btn btn-primary" type="button">CREAR EMPLEADO</button>
-              </div>
+               <label for="name" class="form-label">Nombre</label>
+               <input type="text" class="form-control" id="name" name="name" (input)="soloLetras($event)" required>
+               <div class="invalid-feedback">Por favor, ingrese solo letras.</div>
+               <div class="invalid-message" *ngIf="mostrarMensajeNombre">Solo se permiten letras.</div>
+           </div>
+           
+           <div class="mb-3">
+               <label for="surname" class="form-label">Apellido</label>
+               <input type="text" class="form-control" id="surname" name="surname" (input)="soloLetras($event)" required>
+               <div class="invalid-feedback">Por favor, ingrese solo letras.</div>
+               <div class="invalid-message" *ngIf="mostrarMensajeApellido">Solo se permiten letras.</div>
+           </div>           
+           <div class="mb-3">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="email" formControlName="email" required>
+            <div class="invalid-feedback" [ngClass]="{'d-block': formulario?.get('email')?.hasError('email') && formulario?.get('email')?.touched}">
+              Por favor, ingrese un correo electrónico válido.
+            </div>
+          </div>
+          
+               
+            <div class="mb-3">
+               <label for="birthDay" class="form-label">Fecha de Nacimiento</label>
+               <input type="date" class="form-control" id="birthDay" name="birthDay">
+            </div>
+            <div class="mb-3">
+               <label for="admissionDay" class="form-label">Fecha de Ingreso</label>
+               <input type="date" class="form-control" id="admissionDay" name="admissionDay">
+            </div>                        
+            <div class="d-grid gap-2">
+               <button class="btn btn-primary" type="button" (click)="crearEmpleado()">CREAR EMPLEADO</button>
+            </div>
         </form>
     </div>

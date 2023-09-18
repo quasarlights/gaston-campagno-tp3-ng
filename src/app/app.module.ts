@@ -13,7 +13,7 @@ import { DeleteEmpleadoComponent } from './components/delete-empleado/delete-emp
 import { ReadEmpleadoComponent } from './components/read-empleado/read-empleado.component';
 import { CreateEmpleadoComponent } from './components/create-empleado/create-empleado.component';
 import { UpdateEmpleadoComponent } from './components/update-empleado/update-empleado.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    FormsModule 
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [EmpleadoService],
   bootstrap: [AppComponent]

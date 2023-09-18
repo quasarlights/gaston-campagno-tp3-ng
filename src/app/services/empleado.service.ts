@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Empleado } from '../models/Empleado';
 
@@ -23,6 +23,11 @@ export class EmpleadoService {
 
   updateEmpleado(id: number, empleado: Empleado): Observable<Empleado> {
     return this.http.put<Empleado>(`http://localhost:8080/empleado/${id}`, empleado);
+  }
+
+  createEmpleado(empleado: Empleado): Observable<Empleado> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<Empleado>(this.apiUrl, empleado, { headers });
   }
 
 
