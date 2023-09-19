@@ -36,16 +36,21 @@
               Por favor, ingrese un correo electrónico válido.
             </div>
           </div>
-          
-               
-            <div class="mb-3">
-               <label for="birthDay" class="form-label">Fecha de Nacimiento</label>
-               <input type="date" class="form-control" id="birthDay" name="birthDay">
-            </div>
-            <div class="mb-3">
+          <div class="mb-3">
+            <label for="birthDay" class="form-label">Fecha de Nacimiento</label>
+            <input type="date" class="form-control" id="birthDay" name="birthDay" formControlName="birthDay" 
+               [max]="maxDateBirth" (input)="validarFechaNacimiento(formulario?.get('birthDay')?.value)">
+            <div class="invalid-message text-danger" *ngIf="mostrarMensajeFechaNacimiento">Debe tener al menos 18 años de edad.</div>
+        </div>
+        
+         
+          <div class="mb-3">
                <label for="admissionDay" class="form-label">Fecha de Ingreso</label>
-               <input type="date" class="form-control" id="admissionDay" name="admissionDay">
-            </div>                        
+               <input type="date" class="form-control" id="admissionDay" name="admissionDay" formControlName="admissionDay" max="{{ maxDate | date:'yyyy-MM-dd' }}">
+               <div class="invalid-feedback" *ngIf="formulario?.get('admissionDay')?.hasError('dateError')">
+                  La fecha de ingreso no puede ser posterior al día de la fecha.
+               </div>
+            </div>
             <div class="d-grid gap-2">
                <button class="btn btn-primary" type="button" (click)="crearEmpleado()">CREAR EMPLEADO</button>
             </div>
