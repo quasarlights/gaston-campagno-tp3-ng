@@ -11,9 +11,14 @@ import { CardsComponent } from './components/cards/cards.component';
 import { PanelEmpleadoComponent } from './components/panel-empleado/panel-empleado.component';
 import { DeleteEmpleadoComponent } from './components/delete-empleado/delete-empleado.component';
 import { ReadEmpleadoComponent } from './components/read-empleado/read-empleado.component';
-import { CreateEmpleadoComponent } from './components/create-empleado/create-empleado.component';
+
 import { UpdateEmpleadoComponent } from './components/update-empleado/update-empleado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PanelJornadaComponent } from './components/panel-jornada/panel-jornada.component';
+import { CreateJornadaComponent } from './components/create-jornada/create-jornada.component';
+import { ReadJornadaComponent } from './components/read-jornada/read-jornada.component';
+import { CreateEmpleadoComponent } from './components/create-empleado/create-empleado.component';
+import { ConceptoService } from './services/concepto.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DeleteEmpleadoComponent,
     ReadEmpleadoComponent,
     CreateEmpleadoComponent,
-    UpdateEmpleadoComponent
+    UpdateEmpleadoComponent,
+    PanelJornadaComponent,
+    CreateJornadaComponent,
+    ReadJornadaComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +43,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [EmpleadoService],
+  providers: [EmpleadoService, ConceptoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

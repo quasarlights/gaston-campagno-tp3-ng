@@ -33,7 +33,7 @@
         <select
           class="form-select" aria-label="Disabled select example" [disabled]="!mostrarEmpleadoSelect"
           (change)="seleccionarEmpleado($event)" required>
-          <option selected>Selecciona Empleado</option>
+          <option value="-1" selected>Selecciona Empleado</option>
           <option *ngFor="let empleado of empleados" [value]="empleado.id">
             {{ empleado.nombre }} {{ empleado.apellido }}
           </option>

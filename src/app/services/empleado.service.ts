@@ -30,5 +30,10 @@ export class EmpleadoService {
     return this.http.post<Empleado>(this.apiUrl, empleado, { headers });
   }
 
+  deleteEmpleadoPorId(id: number): Observable<Empleado> {
+    console.log(id)
+    return this.http.delete<Empleado>(`${this.apiUrl}/${id}`);
+  }
+
 
 }

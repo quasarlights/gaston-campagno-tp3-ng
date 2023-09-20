@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { Empleado } from 'src/app/models/Empleado';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { emailValidator } from '../../shared/validators/email-validator';
+//import { emailValidator } from '../../../shared/validators/email-validator';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-create-empleado',
   templateUrl: './create-empleado.component.html',
@@ -48,7 +50,7 @@ export class CreateEmpleadoComponent {
   //VALIDACION EMAIL
  formulario: FormGroup;
  
- constructor(private fb: FormBuilder, private empleadoService: EmpleadoService) {
+ constructor(private fb: FormBuilder, private empleadoService: EmpleadoService, private router: Router) {
   
   this.formulario = this.fb.group({
     email: ['', [Validators.required, Validators.email]], 
@@ -150,6 +152,7 @@ isOverEighteen(year: number, month: number, day: number): boolean {
         (empleadoCreado) => {
           this.mensaje = 'Empleado ' + empleadoCreado.nombre + ' ' + empleadoCreado.apellido + ' creado exitosamente';
           alert(this.mensaje);
+          this.router.navigate(['/']);
         },
         (error) => {
           this.mensaje = 'Error al crear el empleado: ' + error.error.message;

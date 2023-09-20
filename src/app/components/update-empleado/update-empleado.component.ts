@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Empleado } from 'src/app/models/Empleado';
 import { EmpleadoService } from 'src/app/services/empleado.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-update-empleado',
@@ -26,7 +28,7 @@ export class UpdateEmpleadoComponent implements OnInit{
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 
-  constructor(private empleadoService: EmpleadoService,){}
+  constructor(private empleadoService: EmpleadoService, private router: Router){}
 
   ngOnInit(): void {
       this.empleadoService.getEmpleados().subscribe(data=>{
@@ -152,6 +154,7 @@ isOverEighteen(year: number, month: number, day: number): boolean {
         response => {
           console.log("Empleado actualizado con éxito:", response);
           alert("Acutualizacion exitosa: "+ response.apellido)
+          this.router.navigate(['/']);
         },
         error => {
           console.error("Error actualizando el empleado:", error);

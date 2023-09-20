@@ -54,16 +54,28 @@ onRadioSeleccionado(opcion: string): void {
   if (opcion === 'todos') {
     this.mostrarTodosEmpleados = true;
     this.mostrarEmpleadoSelect = false;
+    this.empleado = {
+      id: 0,
+      nroDocumento: 0,
+      nombre: '',
+      apellido: '',
+      email: '',
+      fechaNacimiento: '',
+      fechaIngreso: '',
+      fechaCreacion: ''
+    };
+
   } else if (opcion === 'empleado') {
     this.mostrarEmpleadoSelect = true;
     this.mostrarTodosEmpleados = false;
+    this.empleados1 = [];
     }
   }
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //SELECCIONAR ID DEL EMPLEADO/ SELECCIONAR TODOS
   seleccionarEmpleado(event: any) {
-    this.empleadoIdSeleccionado = event.target.value; // Asigna el valor seleccionado al empleadoIdSeleccionado
-    console.log("Empleado seleccionado:", this.empleadoIdSeleccionado); // Muestra el valor en la consola
+    this.empleadoIdSeleccionado = event.target.value; 
+    console.log("Empleado seleccionado:", this.empleadoIdSeleccionado); 
   }
   
   seleccionarTodos(event:any){
@@ -101,6 +113,9 @@ read(){
 
 
 readEmpleado() {
+  if(this.empleadoIdSeleccionado == -1){
+    alert("Seleccione un empleado");
+  }else{
   this.empleadoService.getEmpleadoPorId(this.empleadoIdSeleccionado)
   
     .subscribe(response => {
@@ -111,6 +126,7 @@ readEmpleado() {
       console.error("Error actualizando el empleado:", error);
       alert(error.error.message);
     });
+    }
   }
 
   readAllEmpleados() {
