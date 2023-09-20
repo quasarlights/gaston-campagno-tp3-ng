@@ -120,7 +120,7 @@ readEmpleado() {
   
     .subscribe(response => {
       console.log("Empleado actualizado con éxito:", response);
-      this.empleado = response; // Asignar el objeto empleado
+      this.empleado = response;
     },
     error => {
       console.error("Error actualizando el empleado:", error);
@@ -134,7 +134,7 @@ readEmpleado() {
     this.empleadoService.getEmpleados()
       .subscribe(response => {
         console.log("Empleados obtenidos con éxito:", response);
-        this.empleados1 = response; // Asignar la lista de empleados
+        this.empleados1 = response;
       },
       error => {
         console.error("Error al obtener los empleados:", error);

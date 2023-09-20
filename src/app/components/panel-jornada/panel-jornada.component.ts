@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./panel-jornada.component.css']
 })
 export class PanelJornadaComponent {
-
+  activeTab: string = 'content1';
 }

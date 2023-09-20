@@ -5,6 +5,8 @@ import { Empleado } from 'src/app/models/Empleado';
 import { ConceptoService } from 'src/app/services/concepto.service';
 import { EmpleadoService } from 'src/app/services/empleado.service';
 import { JornadaService } from 'src/app/services/jornada.service';
+import { Router } from '@angular/router';
+import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-create-jornada',
@@ -14,7 +16,7 @@ import { JornadaService } from 'src/app/services/jornada.service';
 export class CreateJornadaComponent implements OnInit{
   
   constructor(private jornadaService: JornadaService,private conceptoService: ConceptoService,
-              private empleadoService: EmpleadoService){}
+              private empleadoService: EmpleadoService, private router:Router){}
   
   empleados: Empleado[]=[];
   conceptos: Concepto[]=[];
@@ -26,8 +28,33 @@ export class CreateJornadaComponent implements OnInit{
       .subscribe(data=>{
         this.empleados= data;})
   }
+
+  @ViewChild('horasTrabajadas', { static: true })
+  horasTrabajadas!: ElementRef;
+  
   empleadoIdSeleccionado=0;
   conceptoIdSeleccionado=0;
+  notConceptoDiaLibre=false;
+  horasDisabled= false;
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//HORAS TRABAJADAS NOT FOR DIA LIBRE
+esDiaLibre(event: any){
+  if (this.conceptoIdSeleccionado!=3) {
+    this.notConceptoDiaLibre=true;
+    this.horasDisabled= false;
+  }else if(this.conceptoIdSeleccionado==3){
+    this.horasDisabled= true;
+  }
+}
+
+
+horasTrabajadasDiaLibre(){
+  if(this.conceptoIdSeleccionado==3){
+    this.horasDisabled= true;
+  }
+    
+}
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //VALIDACION HORAS TRABAJADAS
 mostrarMensaje: boolean = false; 
@@ -43,19 +70,39 @@ soloNumeros(event: any): void {
   } else {
     this.mostrarMensaje = false; 
   }
+}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //FETCH API CREAR
-/*
-crearJornada: void {
+mensaje: string = '';
+crearJornada(): void {
+  const inputHorasTrabajadas = <HTMLInputElement>document.getElementById('horasTrabajadas');
+  const horasTrabajadasValue = inputHorasTrabajadas.value
+  const horasTrabajadas = horasTrabajadasValue === null ? 0 : +horasTrabajadasValue;
+
+
   const nuevaJornada: JornadaRequest = {
-    // Propiedades del objeto aquí
-    idEmpleado: this.empleadoIdSeleccionado,
-    idConcepto: this.conceptoIdSeleccionado,
-    fecha: (<HTMLInputElement>document.getElementById('fechaJornada')).value,
-    horasTrabajadas: +(<HTMLInputElement>document.getElementById('horasTrabajadas')).value
-    };
-    this.empleadoService.create
-  };
+        idEmpleado: this.empleadoIdSeleccionado,
+        idConcepto: this.conceptoIdSeleccionado,
+        fecha: (<HTMLInputElement>document.getElementById('fechaJornada')).value,
+        horasTrabajadas: horasTrabajadas !== null && horasTrabajadas !== 0 ? horasTrabajadas : undefined
+       };
+    this.jornadaService.createJornada(nuevaJornada)
+          .subscribe((jornadaCreada)=>{
+            this.mensaje= 'Jornada creada exitosamente: '+jornadaCreada.concepto;
+               alert(this.mensaje);
+               this.router.navigate(['/']);
+              },
+              (erro)=>{
+                this.mensaje= "Error al crear la jornada: "+erro.error.message;
+                alert(this.mensaje)
+              })
+        }
+    
+     }
+
+  
+
+
 
       /*
     this.jornadaService.createJornada(nuevaJornada).subscribe(
@@ -73,9 +120,7 @@ crearJornada: void {
     // El correo electrónico no es válido, muestra un mensaje de error
     alert('Por favor, ingrese un correo electrónico válido.');
   }*/
-  } 
-
-}
+  
 
 
 

@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./panel-empleado.component.css']
 })
 export class PanelEmpleadoComponent {
+  
+
 
 }

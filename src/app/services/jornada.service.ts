@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Jornada } from '../models/Jornada';
+import { JornadaRequest } from '../models/JornadaRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +13,25 @@ export class JornadaService {
 
   private apiUrl= 'http://localhost:8080/jornada';
 
-  getJornada(): Observable<Jornada[]>{
+  getJornadas(): Observable<Jornada[]>{
     return this.http.get<Jornada[]>(this.apiUrl);
   }
 
-  createJornada(jornada: Jornada): Observable<Jornada> {
+  createJornada(jornada: JornadaRequest): Observable<Jornada> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Jornada>(this.apiUrl, jornada, { headers });
   }
+
+  getJornada(nroDocumento?: Number, fecha?: string): Observable<any[]> {
+    let params = new HttpParams();    
+    
+    if (nroDocumento !== undefined) {
+      params = params.set('nroDocumento', nroDocumento.toString());
+    }    
+    if (fecha) {
+      params = params.set('fecha', fecha);
+    }
+    return this.http.get<any[]>(`${this.apiUrl}/`, { params });
+  }
+
 }

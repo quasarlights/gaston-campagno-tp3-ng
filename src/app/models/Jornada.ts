@@ -1,8 +1,7 @@
 export interface Jornada {
-    idJornada: number,
     nroDocumento: number,
     nombreCompleto: string,
-    fecha: Date,
+    fecha: string,
     concepto: string,
     hsTrabajadas: number
 }

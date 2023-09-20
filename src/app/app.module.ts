@@ -16,9 +16,9 @@ import { UpdateEmpleadoComponent } from './components/update-empleado/update-emp
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PanelJornadaComponent } from './components/panel-jornada/panel-jornada.component';
 import { CreateJornadaComponent } from './components/create-jornada/create-jornada.component';
-import { ReadJornadaComponent } from './components/read-jornada/read-jornada.component';
 import { CreateEmpleadoComponent } from './components/create-empleado/create-empleado.component';
 import { ConceptoService } from './services/concepto.service';
+import { ReadJornadaComponent } from './components/read-jornada/read-jornada.component';
 
 @NgModule({
   declarations: [
